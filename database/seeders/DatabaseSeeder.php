@@ -3,7 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\User;
+use App\Models\Category;
+use App\Enums\UserRoleEnum;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +17,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        User::create([
+            'name' => 'Ekadian Haris',
+            'username' => 'ayukuriii',
+            'email' => 'ekadianharis@gmail.com',
+            'phone_number' => '087763420873',
+            'role' => UserRoleEnum::ADMIN->value,
+            'password' => Hash::make('qwe12334'),
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Category::insert([
+            [
+                'name' => 'Motherboard',
+                'slug' => 'motherboard',
+            ],
+            [
+                'name' => 'Processor',
+                'slug' => 'processor',
+            ],
+            [
+                'name' => 'Random Access Memory',
+                'slug' => 'random-access-memory',
+            ],
+            [
+                'name' => 'Graphic Card',
+                'slug' => 'graphic-card',
+            ],
+        ]);
     }
 }
