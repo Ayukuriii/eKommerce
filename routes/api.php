@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Http\Request;
@@ -30,4 +31,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::get('/user', [UserProfileController::class, 'me']);
     Route::put('/user/update', [UserProfileController::class, 'update']);
+
+    Route::get('/cart', [CartController::class, 'getCart']);
+    Route::post('/cart/create', [CartController::class, 'addProductToCart']);
+    Route::post('/cart/delete', [CartController::class, 'deleteProductFromCart']);
+    Route::delete('/cart/{cart}', [CartController::class, 'deleteCart']);
 });
