@@ -15,9 +15,6 @@ class ProductController extends Controller
         return view('admin.product.index', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories = Category::all();
@@ -25,12 +22,8 @@ class ProductController extends Controller
         return view('admin.product.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // dd($request->all());
         $validatedData = $request->validate([
             'image' => ['required', 'image', 'mimes:png,jpg,jpeg,gif,svg', 'max:2048'],
             'category_id' => ['required', 'string'],
@@ -48,17 +41,11 @@ class ProductController extends Controller
         return to_route('product.index')->with('success', 'Product created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Product $product)
     {
         return view('admin.product.show', compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Product $product)
     {
         $categories = Category::all();
@@ -66,12 +53,8 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('product', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Product $product)
     {
-        // dd($request->all());
         $validatedData = $request->validate([
             'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,gif,svg', 'max:2048'],
             'category_id' => ['required', 'string'],
@@ -95,9 +78,6 @@ class ProductController extends Controller
         return to_route('product.index')->with('success', 'Product updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
         Storage::delete('public/' . $product->image);

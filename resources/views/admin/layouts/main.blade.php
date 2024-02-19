@@ -18,6 +18,7 @@
             <a class="navbar-brand" href="{{ url('/') }}">Home</a>
             <a class="navbar-brand" href="{{ route('category.index') }}">Category</a>
             <a class="navbar-brand" href="{{ route('product.index') }}">Product</a>
+            <a class="navbar-brand" href="{{ route('admin.user.index') }}">User</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

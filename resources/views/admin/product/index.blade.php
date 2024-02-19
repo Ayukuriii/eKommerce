@@ -48,6 +48,6 @@
             </table>
         </div>
 
-        {{-- {{ $categories->links() }} --}}
+        {{ $products->links() }}
     </div>
 @endsection
