@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\CheckOutController;
+use App\Http\Controllers\Api\MidtransController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Http\Request;
@@ -26,9 +28,8 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/products', [ProductController::class, 'index']);
 
-Route::get('/midtrans', function () {
-    return config('midtrans.merchant_id');
-});
+Route::post('/checkout', [CheckOutController::class, 'checkOut'])->middleware('auth:sanctum');
+Route::post('/handle-midtrans', [MidtransController::class, 'handlePayment']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -40,4 +41,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/cart/create', [CartController::class, 'addProductToCart']);
     Route::post('/cart/delete', [CartController::class, 'deleteProductFromCart']);
     Route::delete('/cart/{cart}', [CartController::class, 'deleteCart']);
+});
+
+Route::prefix('ngetes')->group(function () {
+    Route::get('/midtrans', function () {
+        return config('midtrans.merchant_id');
+    });
 });

@@ -16,6 +16,7 @@ class Order extends Model
         'status',
         'gross_amount',
         'snap_token',
+        'snap_url',
     ];
 
     public function user(): BelongsTo

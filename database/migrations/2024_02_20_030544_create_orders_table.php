@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
             $table->string('status')->default(OrderStatusEnum::PENDING);
-            $table->decimal('gross_amount');
+            $table->unsignedBigInteger('gross_amount');
             $table->string('snap_token');
+            $table->string('snap_url');
             $table->timestamps();
         });
     }

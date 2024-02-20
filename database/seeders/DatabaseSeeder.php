@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'ekadianharis@gmail.com',
             'phone_number' => '087763420873',
             'role' => UserRoleEnum::ADMIN->value,
-            'password' => Hash::make('qwe12334'),
+            'password' => Hash::make('password'),
         ]);
 
         Category::insert([
