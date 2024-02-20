@@ -16,9 +16,10 @@
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">Home</a>
-            <a class="navbar-brand" href="{{ route('category.index') }}">Category</a>
-            <a class="navbar-brand" href="{{ route('product.index') }}">Product</a>
-            <a class="navbar-brand" href="{{ route('admin.user.index') }}">User</a>
+            <a class="navbar-brand" href="{{ route('category.index') }}">Categories</a>
+            <a class="navbar-brand" href="{{ route('product.index') }}">Products</a>
+            <a class="navbar-brand" href="{{ route('admin.user.index') }}">Users</a>
+            <a class="navbar-brand" href="{{ route('admin.orders.index') }}">Orders</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

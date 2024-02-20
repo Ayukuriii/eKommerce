@@ -35,6 +35,7 @@ class CheckOutController extends Controller
         }
 
         $order = Order::create([
+            'id' => rand(1000, 9999),
             'user_id' => $user->id,
             'status' => OrderStatusEnum::PENDING->value,
             'gross_amount' => $totalPrice,

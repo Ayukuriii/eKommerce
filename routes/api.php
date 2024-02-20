@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CheckOutController;
 use App\Http\Controllers\Api\MidtransController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Http\Request;
@@ -41,6 +42,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/cart/create', [CartController::class, 'addProductToCart']);
     Route::post('/cart/delete', [CartController::class, 'deleteProductFromCart']);
     Route::delete('/cart/{cart}', [CartController::class, 'deleteCart']);
+
+    Route::get('/orders', [OrderController::class, 'getOrders']);
 });
 
 Route::prefix('ngetes')->group(function () {

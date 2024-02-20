@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserListController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/user', [UserListController::class, 'index'])->name('admin.user.index');
         Route::get('/user/{user}', [UserListController::class, 'show'])->name('admin.user.show');
+
+        Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders.index');
+        Route::get('/orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
 
         Route::resource('category', CategoryController::class);
         Route::resource('product', ProductController::class);
