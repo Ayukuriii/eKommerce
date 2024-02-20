@@ -26,6 +26,10 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/products', [ProductController::class, 'index']);
 
+Route::get('/midtrans', function () {
+    return config('midtrans.merchant_id');
+});
+
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
