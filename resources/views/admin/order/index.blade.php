@@ -9,6 +9,7 @@
                         <th scope="col">#</th>
                         <th scope="col">User Name</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Payment Method</th>
                         <th scope="col">Total Price</th>
                         <th scope="col">Created At</th>
                         <th scope="col">Action</th>
@@ -20,7 +21,8 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $order->user->name }}</td>
                             <td>{{ $order->status }}</td>
-                            <td>{{ $order->gross_amount }}</td>
+                            <td>{{ $order->payment_type }}</td>
+                            <td>Rp.{{ number_format($order->gross_amount, 2, ',', '.') }}</td>
                             <td>{{ $order->created_at->format('d M Y') }}</td>
                             <td class="text-center">
                                 <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-dark"><i

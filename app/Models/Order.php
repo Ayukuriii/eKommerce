@@ -15,6 +15,7 @@ class Order extends Model
         'id',
         'user_id',
         'status',
+        'payment_type',
         'gross_amount',
         'snap_token',
         'snap_url',

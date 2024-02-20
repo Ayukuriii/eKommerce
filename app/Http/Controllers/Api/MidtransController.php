@@ -52,11 +52,12 @@ class MidtransController extends Controller
             // update transaction status
             if ($transactionStatus == 'settlement') {
                 $order->status = OrderStatusEnum::SUCCESS->value;
-                $order->save();
             } else if ($transactionStatus == 'expire') {
                 $order->status = OrderStatusEnum::FAILED->value;
-                $order->save();
             }
+
+            $order->payment_type = $payload['payment_type'];
+            $order->save();
         } catch (Error $err) {
             throw $err;
         }
