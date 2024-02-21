@@ -1,4 +1,10 @@
-@extends('admin.layouts.main')
+@extends('adminlte::page')
+
+@section('title', 'Order')
+
+@section('content_header')
+    <h1>Order</h1>
+@stop
 
 @section('content')
     <div class="container mt-5">
@@ -17,7 +23,7 @@
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $item->product->name }}</td>
-                            <td>{{ $item->product->price }}</td>
+                            <td>Rp.{{ number_format($item->product->price, 2, ',', '.') }}</td>
                             <td>{{ $item->quantity }}</td>
                         </tr>
                     @empty
@@ -32,4 +38,4 @@
         </div>
 
     </div>
-@endsection
+@stop

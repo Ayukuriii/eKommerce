@@ -1,4 +1,10 @@
-@extends('admin.layouts.main')
+@extends('adminlte::page')
+
+@section('title', 'Order')
+
+@section('content_header')
+    <h1>Order</h1>
+@stop
 
 @section('content')
     <div class="container mt-5">
@@ -42,4 +48,4 @@
 
         {{ $orders->links() }}
     </div>
-@endsection
+@stop
