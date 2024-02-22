@@ -257,8 +257,8 @@ return [
     'logout_url' => 'auth.logout',
     'login_url' => 'auth.login',
     'register_url' => 'auth.register',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
+    'password_reset_url' => '',
+    'password_email_url' => '',
     'profile_url' => 'auth.profile',
 
     /*

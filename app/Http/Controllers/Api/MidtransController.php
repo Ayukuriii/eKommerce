@@ -6,6 +6,7 @@ use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\MidtransHistory;
 use App\Models\Order;
+use App\Models\Product;
 use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -52,6 +53,13 @@ class MidtransController extends Controller
             // update transaction status
             if ($transactionStatus == 'settlement') {
                 $order->status = OrderStatusEnum::SUCCESS->value;
+                $items = $order->items;
+                foreach ($items as $item) {
+                    $product = Product::where('id', $item->product_id)->first();
+                    $product->update([
+                        'quantity' => $product->quantity - $item->quantity
+                    ]);
+                }
             } else if ($transactionStatus == 'expire') {
                 $order->status = OrderStatusEnum::FAILED->value;
             }
