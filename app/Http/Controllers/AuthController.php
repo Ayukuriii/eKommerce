@@ -6,6 +6,7 @@ use App\Enums\UserRoleEnum;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -38,6 +39,38 @@ class AuthController extends Controller
         User::create($validatedData);
 
         return to_route('auth.index')->with('success', 'Account created successfully!');
+    }
+
+    public function show()
+    {
+        $user = auth()->user();
+        return view('admin.profile.index', compact('user'));
+    }
+
+    public function edit()
+    {
+        $user = Auth::user();
+        return view('admin.profile.edit', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        // dd($request->all()); 
+        $user = User::find(auth()->id());
+        $validatedData = $request->validate([
+            'name' => ['nullable', 'string', 'max:255'],
+            'username' => ['nullable', 'string', 'max:255', 'unique:users,username,' . auth()->id()],
+            'email' => ['nullable', 'email'],
+            'phone_number' => ['nullable', 'numeric'],
+            'password' => ['required']
+        ]);
+
+        if (!Hash::check($validatedData['password'], $user->password)) {
+            return back()->with('failed', 'Incorrect Credentials');
+        }
+
+        $user->update($validatedData);
+        return to_route('auth.profile')->with('success', 'Profile updated successfully');
     }
 
     public function login(Request $request)

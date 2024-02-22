@@ -10,7 +10,7 @@
     <div class="container mt-5">
         <div class="card-body">
             <a href="{{ route('category.create') }}" class="btn btn-md btn-success mb-3">ADD CATEGORY</a>
-            <table class="table table-striped table-hover">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -25,18 +25,23 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->slug }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('category.show', $category->id) }}" class="btn btn-sm btn-dark"><i
-                                        class="fa fa-eye"></i></a>
-                                <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-primary"><i
-                                        class="fa fa-pencil-alt"></i></a>
+                            <td class="text-center d-flex justify-content-center align-items-center">
+                                <a href="{{ route('category.show', $category->id) }}" class="btn btn-sm btn-dark mx-1"
+                                    title="View Details">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-primary mx-1"
+                                    title="Edit Category">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </a>
 
                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                     action="{{ route('category.destroy', $category->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i
-                                            class="fa fa-trash"></i></button>
+                                    <button type="submit" class="btn btn-sm btn-danger mx-1" title="Delete Category">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

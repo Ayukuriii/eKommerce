@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 Route::redirect('/', '/admin/dashboard');
 
+
+
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [AuthController::class, 'create'])->name('auth.register');
     Route::post('/register', [AuthController::class, 'store'])->name('auth.store');
@@ -19,6 +21,9 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/profile', [AuthController::class, 'show'])->name('auth.profile');
+    Route::put('/profile', [AuthController::class, 'update'])->name('auth.profile.update');
+    Route::get('/profile/edit', [AuthController::class, 'edit'])->name('auth.profile.edit');
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
     Route::prefix('admin')->group(function () {

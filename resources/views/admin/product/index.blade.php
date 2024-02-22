@@ -28,17 +28,17 @@
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->quantity }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('product.show', $product->id) }}" class="btn btn-sm btn-dark"><i
+                            <td class="text-center d-flex justify-content-center align-items-center">
+                                <a href="{{ route('product.show', $product->id) }}" class="btn btn-sm btn-dark mx-1"><i
                                         class="fa fa-eye"></i></a>
-                                <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-primary"><i
+                                <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-primary mx-1"><i
                                         class="fa fa-pencil-alt"></i></a>
 
                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                     action="{{ route('product.destroy', $product->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i
+                                    <button type="submit" class="btn btn-sm btn-danger mx-1"><i
                                             class="fa fa-trash"></i></button>
                                 </form>
                             </td>
