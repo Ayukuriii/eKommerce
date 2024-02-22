@@ -311,6 +311,11 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        [
+            'text' => 'Dashboard',
+            'url'  => 'admin/dashboard',
+            'icon' => 'fas fa-fw fa-cube',
+        ],
         ['header' => 'SHOPS'],
         [
             'text' => 'Category',
@@ -325,7 +330,7 @@ return [
         [
             'text' => 'Order',
             'url'  => 'admin/orders',
-            'icon' => 'fas fa-fw fa-bars',
+            'icon' => 'fas fa-fw fa-shopping-cart',
 
         ],
         ['header' => 'account_settings'],
