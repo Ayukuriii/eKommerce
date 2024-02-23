@@ -51,7 +51,7 @@ class MidtransController extends Controller
             }
 
             // update transaction status
-            if ($transactionStatus == 'settlement') {
+            if ($transactionStatus == 'settlement' || $transactionStatus == 'capture') {
                 $order->status = OrderStatusEnum::SUCCESS->value;
                 $items = $order->items;
                 foreach ($items as $item) {
@@ -60,7 +60,7 @@ class MidtransController extends Controller
                         'quantity' => $product->quantity - $item->quantity
                     ]);
                 }
-            } else if ($transactionStatus == 'expire') {
+            } else if ($transactionStatus == 'expire' || $transactionStatus == 'failure' || $transactionStatus == 'cancel' || $transactionStatus == 'deny') {
                 $order->status = OrderStatusEnum::FAILED->value;
             }
 
