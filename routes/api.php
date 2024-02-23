@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('/cart/{cart}', [CartController::class, 'deleteCart']);
 
     Route::get('/orders', [OrderController::class, 'getOrders']);
+    Route::get('/orders/detail', [OrderController::class, 'getOrderItems']);
 });
 
 Route::prefix('ngetes')->group(function () {

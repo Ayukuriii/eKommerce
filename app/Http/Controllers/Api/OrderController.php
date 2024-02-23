@@ -14,4 +14,13 @@ class OrderController extends Controller
 
         return response()->json(['orders' => $orders]);
     }
+
+    public function getOrderItems(Request $request)
+    {
+        $user = $request->user();
+        $orders = $user->orders->first();
+        $items = $orders->items;
+
+        return response()->json(['items' => $items]);
+    }
 }
