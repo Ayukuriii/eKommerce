@@ -6,13 +6,34 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::paginate(10);
-        return view('admin.product.index', compact('products'));
+        if (request()->ajax()) {
+            $products = Product::query();
+
+            return DataTables::of($products)
+                ->addColumn('action', function ($product) {
+                    $viewUrl = route('product.show', $product->id);
+                    $editUrl = route('product.edit', $product->id);
+                    $deleteUrl = route('product.destroy', $product->id);
+                    return '<td class="text-center d-flex justify-content-center align-items-center">
+                                <a href="' . $viewUrl . '" class="btn btn-sm btn-dark mr-1"><i class="fa fa-eye"></i></a>
+                                <a href="' . $editUrl . '" class="btn btn-sm btn-primary mr-1"><i class="fa fa-pencil-alt"></i></a>
+                                <form onsubmit="return confirm(\'Are you sure you want to delete this product?\');" action="' . $deleteUrl . '" method="POST">
+                                    ' . csrf_field() . '
+                                    ' . method_field('DELETE') . '
+                                    <button type="submit" class="btn btn-sm btn-danger mr-1"><i class="fa fa-trash"></i></button>
+                                </form>
+                            </td>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('admin.product.index');
     }
 
     public function create()

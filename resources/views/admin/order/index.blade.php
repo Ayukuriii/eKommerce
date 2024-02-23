@@ -9,7 +9,7 @@
 @section('content')
     <div class="container mt-5">
         <div class="card-body">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover" id="serverside">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -21,31 +21,56 @@
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @forelse ($orders as $order)
-                        <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $order->user->name }}</td>
-                            <td>{{ $order->status }}</td>
-                            <td>{{ $order->payment_type }}</td>
-                            <td>Rp.{{ number_format($order->gross_amount, 2, ',', '.') }}</td>
-                            <td>{{ $order->created_at->format('d M Y') }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-dark"><i
-                                        class="fa fa-eye"></i></a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr class="text-center">
-                            <td colspan="6" class="alert alert-danger">
-                                Data Orders Belum Tersedia.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
+
             </table>
         </div>
 
-        {{ $orders->links() }}
     </div>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css">
+@stop
+
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#serverside').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('admin.orders.index') }}',
+                columns: [{
+                        name: 'id',
+                        data: 'id'
+                    },
+                    {
+                        name: 'name',
+                        data: 'name'
+                    },
+                    {
+                        name: 'status',
+                        data: 'status'
+                    },
+                    {
+                        name: 'payment_type',
+                        data: 'payment_type'
+                    },
+                    {
+                        name: 'gross_amount',
+                        data: 'gross_amount'
+                    },
+                    {
+                        name: 'date',
+                        data: 'date',
+                    },
+                    {
+                        name: 'action',
+                        data: 'action',
+                    }
+                ]
+            });
+        });
+    </script>
 @stop

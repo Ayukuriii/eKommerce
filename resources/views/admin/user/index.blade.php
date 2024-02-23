@@ -9,7 +9,7 @@
 @section('content')
     <div class="container mt-5">
         <div class="card-body">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover" id="serverside">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -50,4 +50,19 @@
 
         {{ $users->links() }}
     </div>
+@stop
+
+
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css">
+@stop
+
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#serverside').DataTable();
+        });
+    </script>
 @stop

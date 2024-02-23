@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DataTableController;
 use App\Http\Controllers\UserListController;
 use Illuminate\Support\Facades\DB;
 
@@ -53,4 +54,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('category', CategoryController::class);
         Route::resource('product', ProductController::class);
     });
+});
+
+Route::get('/test', function () {
+    return view('test');
 });
