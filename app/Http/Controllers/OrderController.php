@@ -44,9 +44,4 @@ class OrderController extends Controller
 
         return view('admin.order.show', compact('items'));
     }
-
-    public function export()
-    {
-        return new OrdersExport();
-    }
 }

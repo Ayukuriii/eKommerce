@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\CategoriesExport;
-use App\Imports\CategoriesImport;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
@@ -82,10 +79,5 @@ class CategoryController extends Controller
         $category->delete();
 
         return to_route('category.index')->with('success', 'Category deleted successfully');
-    }
-
-    public function export()
-    {
-        return new CategoriesExport();
     }
 }

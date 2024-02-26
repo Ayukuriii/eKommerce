@@ -16,9 +16,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Category::class)->constrained('categories')->cascadeOnDelete();
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->text('description');
-            $table->string('image');
+            $table->string('image')->nullable()->default(asset('assets/images/product/No_image_available.svg.png'));
             $table->bigInteger('price');
             $table->bigInteger('quantity');
             $table->timestamps();

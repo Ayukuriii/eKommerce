@@ -47,7 +47,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'image' => ['required', 'image', 'mimes:png,jpg,jpeg,gif,svg', 'max:2048'],
+            'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,gif,svg', 'max:2048'],
             'category_id' => ['required', 'string'],
             'name' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255'],
@@ -56,7 +56,9 @@ class ProductController extends Controller
             'quantity' => ['required', 'numeric'],
         ]);
 
-        $validatedData['image'] = $request->file('image')->store('images', 'public');
+        if ($request->hasFile('image')) {
+            $validatedData['image'] = $request->file('image')->store('images', 'public');
+        }
 
         Product::create($validatedData);
 
@@ -107,10 +109,5 @@ class ProductController extends Controller
         $product->delete();
 
         return back()->with('success', 'Product deleted successfully');
-    }
-
-    public function export()
-    {
-        return new ProductExport();
     }
 }

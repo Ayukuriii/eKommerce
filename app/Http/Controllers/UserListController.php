@@ -36,9 +36,4 @@ class UserListController extends Controller
     {
         return view('admin.user.show', compact('user'));
     }
-
-    public function export()
-    {
-        return new UsersExport();
-    }
 }

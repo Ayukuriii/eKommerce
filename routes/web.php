@@ -17,6 +17,8 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 });
 
+require __DIR__ . '/dataTransfer.php';
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', [AuthController::class, 'show'])->name('auth.profile');
     Route::put('/profile', [AuthController::class, 'update'])->name('auth.profile.update');
@@ -25,11 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-        Route::get('/user/export', [UserListController::class, 'export'])->name('export.users');
-        Route::get('/category/export', [CategoryController::class, 'export'])->name('export.categories');
-        Route::get('/product/export', [ProductController::class, 'export'])->name('export.product');
-        Route::get('/orders/export', [OrderController::class, 'export'])->name('export.order');
 
         Route::get('/user', [UserListController::class, 'index'])->name('admin.user.index');
         Route::get('/user/{user}', [UserListController::class, 'show'])->name('admin.user.show');
@@ -42,6 +39,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
-// Route::get('/test', function () {
-//     return view('test');
-// });
+Route::get('/test', function () {
+    return view('test');
+});
