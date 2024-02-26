@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrdersExport;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -42,5 +43,10 @@ class OrderController extends Controller
         $items = $order->items;
 
         return view('admin.order.show', compact('items'));
+    }
+
+    public function export()
+    {
+        return new OrdersExport();
     }
 }
