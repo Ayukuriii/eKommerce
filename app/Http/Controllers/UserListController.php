@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Enums\UserRoleEnum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserListController extends Controller
 {
@@ -14,8 +15,20 @@ class UserListController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        return view('admin.user.index', compact('users'));
+        if (request()->ajax()) {
+            $users = User::query();
+
+            return DataTables::of($users)
+                ->addColumn('action', function ($user) {
+                    $viewUrl = route('admin.user.index');
+                    return '<td class="text-center d-flex justify-content-center align-items-center">
+                            <a href="' . $viewUrl . '" class="btn btn-sm btn-dark mr-1"><i class="fa fa-eye"></i></a>
+                        </td>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('admin.user.index');
     }
 
     public function show(User $user)

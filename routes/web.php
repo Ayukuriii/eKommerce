@@ -1,18 +1,14 @@
 <?php
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DataTableController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserListController;
-use Illuminate\Support\Facades\DB;
 
 Route::redirect('/', '/admin/dashboard');
-
-
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [AuthController::class, 'create'])->name('auth.register');
@@ -28,22 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
     Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', function () {
-            $startDate1 = Carbon::now()->subDays(2)->startOfDay();
-            $endDate1 = Carbon::now()->endOfDay();
-            $orderCount = DB::table('orders')
-                ->whereBetween('created_at', [$startDate1, $endDate1])
-                ->count();
-
-            $productCount = DB::table('products')->count();
-
-            $startDate2 = Carbon::now()->subWeek()->startOfDay();
-            $endDate2 = Carbon::now()->endOfDay();
-            $userCount = DB::table('users')
-                ->whereBetween('created_at', [$startDate2, $endDate2])
-                ->count();
-            return view('admin.dashboard', compact('orderCount', 'productCount', 'userCount'));
-        })->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/user', [UserListController::class, 'index'])->name('admin.user.index');
         Route::get('/user/{user}', [UserListController::class, 'show'])->name('admin.user.show');
@@ -56,6 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
+// Route::get('/test', function () {
+//     return view('test');
+// });
