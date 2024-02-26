@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductExport;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -106,5 +107,10 @@ class ProductController extends Controller
         $product->delete();
 
         return back()->with('success', 'Product deleted successfully');
+    }
+
+    public function export()
+    {
+        return new ProductExport();
     }
 }

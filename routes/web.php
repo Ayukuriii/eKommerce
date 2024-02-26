@@ -26,14 +26,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        Route::get('/user', [UserListController::class, 'index'])->name('admin.user.index');
         Route::get('/user/export', [UserListController::class, 'export'])->name('export.users');
+        Route::get('/category/export', [CategoryController::class, 'export'])->name('export.categories');
+        Route::get('/product/export', [ProductController::class, 'export'])->name('export.product');
+
+        Route::get('/user', [UserListController::class, 'index'])->name('admin.user.index');
         Route::get('/user/{user}', [UserListController::class, 'show'])->name('admin.user.show');
 
         Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders.index');
         Route::get('/orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
 
-        Route::get('/category/export', [CategoryController::class, 'export'])->name('export.categories');
         Route::resource('category', CategoryController::class);
         Route::resource('product', ProductController::class);
     });
