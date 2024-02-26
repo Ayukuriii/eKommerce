@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/user', [UserListController::class, 'index'])->name('admin.user.index');
+        Route::get('/user/export', [UserListController::class, 'export'])->name('export.users');
         Route::get('/user/{user}', [UserListController::class, 'show'])->name('admin.user.show');
 
         Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders.index');

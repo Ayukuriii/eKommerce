@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Enums\UserRoleEnum;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
@@ -34,5 +35,10 @@ class UserListController extends Controller
     public function show(User $user)
     {
         return view('admin.user.show', compact('user'));
+    }
+
+    public function export()
+    {
+        return new UsersExport();
     }
 }

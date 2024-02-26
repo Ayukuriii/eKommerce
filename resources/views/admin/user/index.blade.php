@@ -9,6 +9,7 @@
 @section('content')
     <div class="container mt-5">
         <div class="card-body">
+            <a href="{{ route('export.users') }}" class=" btn btn-dark mb-1">Export</a>
             <table class="table table-striped table-hover" id="serverside">
                 <thead>
                     <tr>
