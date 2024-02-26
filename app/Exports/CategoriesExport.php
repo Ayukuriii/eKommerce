@@ -2,21 +2,21 @@
 
 namespace App\Exports;
 
-use App\Models\User;
+use App\Models\Category;
 use Maatwebsite\Excel\Excel;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Contracts\Support\Responsable;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class UsersExport implements FromCollection, Responsable, ShouldAutoSize, WithHeadings, WithStyles
+class CategoriesExport implements FromQuery, Responsable, ShouldAutoSize, WithHeadings, WithStyles
 {
     use Exportable;
 
-    private $fileName = 'users.xlsx';
+    private $fileName = 'categories.xlsx';
 
     private $writerType = Excel::XLSX;
 
@@ -27,15 +27,9 @@ class UsersExport implements FromCollection, Responsable, ShouldAutoSize, WithHe
     public function headings(): array
     {
         return [
-            'id',
+            'No.',
             'Name',
-            'Username',
-            'Email',
-            'Phone Number',
-            'role',
-            'email verified at',
-            'created at',
-            'updated at'
+            'Slug',
         ];
     }
 
@@ -47,8 +41,8 @@ class UsersExport implements FromCollection, Responsable, ShouldAutoSize, WithHe
         ];
     }
 
-    public function collection()
+    public function query()
     {
-        return User::all();
+        return Category::query();
     }
 }

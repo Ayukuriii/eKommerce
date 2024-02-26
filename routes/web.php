@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders.index');
         Route::get('/orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
 
+        Route::get('/category/export', [CategoryController::class, 'export'])->name('export.categories');
         Route::resource('category', CategoryController::class);
         Route::resource('product', ProductController::class);
     });

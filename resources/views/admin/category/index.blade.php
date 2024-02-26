@@ -9,7 +9,10 @@
 @section('content')
     <div class="container mt-5">
         <div class="card-body">
-            <a href="{{ route('category.create') }}" class="btn btn-md btn-success mb-3">ADD CATEGORY</a>
+            <a href="{{ route('category.create') }}" class="btn btn-md btn-success mb-3 mr-1">ADD CATEGORY</a>
+            <a href="{{ route('export.categories') }}" class="btn btn-md btn-dark mb-3 mr-1">Export</a>
+            {{-- <a href="{{ route('export.categories') }}" class="btn btn-md btn-dark mb-3 mr-1">Import</a> --}}
+            <a href="#" class="btn btn-md btn-dark mb-3 mr-1">Import</a>
             <table class="table table-striped" id="serverside">
                 <thead>
                     <tr>
