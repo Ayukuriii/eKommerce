@@ -16,8 +16,10 @@ Route::group(['middleware' => 'auth'], function () {
 
         // import
         Route::post('/category/import', [CategoryDataTransferController::class, 'import'])->name('import.categories');
+        Route::post('/product/import', [ProductDataTransferController::class, 'import'])->name('import.product');
 
         // download
         Route::get('/category/template', [CategoryDataTransferController::class, 'download'])->name('template.categories');
+        Route::get('/product/template', [ProductDataTransferController::class, 'download'])->name('template.product');
     });
 });

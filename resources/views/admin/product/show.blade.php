@@ -13,7 +13,12 @@
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="{{ asset('storage/' . $product->image) }}" class="w-50 rounded">
+                            @if ($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}" class="w-50 rounded">
+                            @else
+                                <img src="{{ asset('assets/images/product/No_image_available.svg.png') }}"
+                                    class="w-50 rounded">
+                            @endif
                         </div>
                         <div class="text-right">
                             <i> Category: {{ $product->category->name }}</i>

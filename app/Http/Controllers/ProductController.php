@@ -31,6 +31,11 @@ class ProductController extends Controller
                                 </form>
                             </td>';
                 })
+                ->addColumn('category', function ($product) {
+                    $category = $product->category->name;
+
+                    return $category;
+                })
                 ->rawColumns(['action'])
                 ->make(true);
         }

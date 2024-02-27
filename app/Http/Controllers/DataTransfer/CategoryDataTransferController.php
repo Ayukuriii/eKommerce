@@ -20,21 +20,23 @@ class CategoryDataTransferController extends Controller
 
     public function import(Request $request)
     {
-        // dd(Carbon::now());
         $validatedData = $request->validate([
             'templateFile' => ['required', 'mimes:xlsx'],
         ]);
 
+        // store local
         $current = date('YmdHis');
         $fileName = $current . '-' . $request->file('templateFile')->getClientOriginalName();
         $validatedData['templateFile'] = request()->file('templateFile')->storeAs('importData', $fileName, 'public');
-        $path = storage_path('app/public/importData/' . $fileName);
 
+        // store table
+        $path = storage_path('app/public/importData/' . $fileName);
         Excel::import(new CategoriesImport, $path);
 
+        // delete local
         Storage::delete('public/importData/' . $fileName);
 
-        return back()->with('success', 'Data imported successfully!');
+        return to_route('category.index')->with('success', 'Data imported successfully!');
     }
 
     public function download()

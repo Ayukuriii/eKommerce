@@ -24,6 +24,10 @@ class DatabaseSeeder extends Seeder
 
         Category::insert([
             [
+                'name' => 'Unassigned',
+                'slug' => 'unassigned',
+            ],
+            [
                 'name' => 'Motherboard',
                 'slug' => 'motherboard',
             ],

@@ -14,11 +14,11 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Category::class)->constrained('categories')->cascadeOnDelete();
+            $table->foreignIdFor(Category::class)->default(1)->constrained('categories')->cascadeOnDelete();
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description');
-            $table->string('image')->nullable()->default(asset('assets/images/product/No_image_available.svg.png'));
+            $table->string('image')->nullable();
             $table->bigInteger('price');
             $table->bigInteger('quantity');
             $table->timestamps();

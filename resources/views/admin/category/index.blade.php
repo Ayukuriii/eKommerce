@@ -11,10 +11,10 @@
         <div class="card-body">
             <a href="{{ route('category.create') }}" class="btn btn-md btn-success mb-3 mr-1">ADD CATEGORY</a>
             <a href="{{ route('export.categories') }}" class="btn btn-md btn-dark mb-3 mr-1">Export</a>
-            {{-- <a href="{{ route('export.categories') }}" class="btn btn-md btn-dark mb-3 mr-1">Import</a> --}}
             <!-- Button trigger modal -->
             <button type="button" data-toggle="modal" data-target="#importModal"
                 class="btn btn-md btn-dark mb-3 mr-1">Import</button>
+                
             <table class="table table-striped" id="serverside">
                 <thead>
                     <tr>
