@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ProductExport;
-use App\Models\Category;
+use App\Models\User;
 use App\Models\Product;
+use App\Models\Category;
+use App\Enums\UserRoleEnum;
 use Illuminate\Http\Request;
+use App\Exports\ProductExport;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use App\Notifications\Api\NewProductNotification;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -65,7 +69,10 @@ class ProductController extends Controller
             $validatedData['image'] = $request->file('image')->store('images', 'public');
         }
 
-        Product::create($validatedData);
+        $product = Product::create($validatedData);
+
+        $notif = $this->userNotify($product);
+        Log::info($notif);
 
         return to_route('product.index')->with('success', 'Product created successfully');
     }
@@ -114,5 +121,16 @@ class ProductController extends Controller
         $product->delete();
 
         return back()->with('success', 'Product deleted successfully');
+    }
+
+    public function userNotify($product)
+    {
+        $users = User::where('role', UserRoleEnum::USER->value)->get();
+
+        foreach ($users as $user) {
+            $user->notify(new NewProductNotification($product));
+        }
+
+        return count($users);
     }
 }

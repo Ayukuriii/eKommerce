@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CheckOutController;
 use App\Http\Controllers\Api\MidtransController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserProfileController;
@@ -45,6 +46,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::get('/orders', [OrderController::class, 'getOrders']);
     Route::get('/orders/detail', [OrderController::class, 'getOrderItems']);
+
+    Route::get('/notifications', [NotificationController::class, 'getAll']);
+    Route::get('/notifications/{id}', [NotificationController::class, 'markAsRead']);
 });
 
 Route::prefix('ngetes')->group(function () {

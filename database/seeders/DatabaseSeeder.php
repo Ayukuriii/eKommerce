@@ -13,14 +13,34 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
-            'name' => 'Ekadian Haris',
-            'username' => 'ayukuriii',
-            'email' => 'ekadianharis@gmail.com',
-            'phone_number' => '087763420873',
-            'role' => UserRoleEnum::ADMIN->value,
-            'password' => Hash::make('password'),
-        ]);
+        User::insert(
+            [
+                [
+                    'name' => 'Ekadian',
+                    'username' => 'ayukuriii',
+                    'email' => 'ekadianharis@gmail.com',
+                    'phone_number' => '087763420873',
+                    'role' => UserRoleEnum::ADMIN->value,
+                    'password' => Hash::make('password'),
+                ],
+                [
+                    'name' => 'Haris',
+                    'username' => 'harisunyan',
+                    'email' => 'harisu1234@gmail.com',
+                    'phone_number' => '087763420823',
+                    'role' => UserRoleEnum::USER->value,
+                    'password' => Hash::make('password'),
+                ],
+                [
+                    'name' => 'Priyatama',
+                    'username' => 'nyanwololo',
+                    'email' => 'nyanwololo@gmail.com',
+                    'phone_number' => '087763420851',
+                    'role' => UserRoleEnum::USER->value,
+                    'password' => Hash::make('password'),
+                ],
+            ]
+        );
 
         Category::insert([
             [
