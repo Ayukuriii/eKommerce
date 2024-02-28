@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\OrderStatusEnum;
-use App\Http\Controllers\Controller;
-use App\Models\MidtransHistory;
+use Error;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
-use Error;
+use App\Enums\UserRoleEnum;
 use Illuminate\Http\Request;
+use App\Enums\OrderStatusEnum;
+use App\Models\MidtransHistory;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Notifications\Api\MidtransNotification;
 
 class MidtransController extends Controller
 {
@@ -50,6 +53,8 @@ class MidtransController extends Controller
                 ], 404);
             }
 
+            $user = $order->user;
+
             // update transaction status
             if ($transactionStatus == 'settlement' || $transactionStatus == 'capture') {
                 $order->status = OrderStatusEnum::SUCCESS->value;
@@ -66,10 +71,18 @@ class MidtransController extends Controller
 
             $order->payment_type = $payload['payment_type'];
             $order->save();
+            if ($order->status !== 'pending') {
+                $this->statusUpdateNotification($order, $user);
+            }
         } catch (Error $err) {
             throw $err;
         }
 
         return response()->json(['message' => 'success']);
+    }
+
+    public function statusUpdateNotification($order, $users)
+    {
+        $users->notify(new MidtransNotification($order));
     }
 }
