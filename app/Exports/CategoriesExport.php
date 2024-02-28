@@ -16,7 +16,13 @@ class CategoriesExport implements FromQuery, Responsable, ShouldAutoSize, WithHe
 {
     use Exportable;
 
-    private $fileName = 'categories.xlsx';
+    // private $fileName = date() . 'categories.xlsx';
+    private $fileName;
+
+    public function __construct()
+    {
+        $this->fileName = date('Ymd_His') . '_categories.xlsx';
+    }
 
     private $writerType = Excel::XLSX;
 

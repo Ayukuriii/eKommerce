@@ -16,7 +16,12 @@ class UsersExport implements FromCollection, Responsable, ShouldAutoSize, WithHe
 {
     use Exportable;
 
-    private $fileName = 'users.xlsx';
+    private $fileName;
+
+    public function __construct()
+    {
+        $this->fileName = date('Ymd_His') . '_users.xlsx';
+    }
 
     private $writerType = Excel::XLSX;
 

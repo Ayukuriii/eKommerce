@@ -16,7 +16,12 @@ class OrdersExport implements FromQuery, WithMapping, Responsable, WithHeadings,
 {
     use Exportable;
 
-    private $fileName = 'orders.xlsx';
+    private $fileName;
+
+    public function __construct()
+    {
+        $this->fileName = date('Ymd_His') . '_orders.xlsx';
+    }
 
     private $writerType = Excel::XLSX;
 

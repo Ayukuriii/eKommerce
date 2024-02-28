@@ -16,7 +16,12 @@ class ProductExport implements FromCollection, Responsable, ShouldAutoSize, With
 {
     use Exportable;
 
-    private $fileName = 'products.xlsx';
+    private $fileName;
+
+    public function __construct()
+    {
+        $this->fileName = date('Ymd_His') . '_products.xlsx';
+    }
 
     private $writerType = Excel::XLSX;
 
