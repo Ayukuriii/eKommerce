@@ -52,8 +52,8 @@ class NewOrderNotification extends Notification
         return [
             'title' => 'New Order Created',
             'category' => 'Order',
-            'body' => 'New user has been registered!',
-            'link' => route('admin.orders.show', $this->order->id),
+            'body' => 'New order has been created!',
+            'link' => "http://ekommerce.test/admin/orders/" . $this->order->id,
         ];
     }
 }

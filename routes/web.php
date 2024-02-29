@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/notification', [NotificationController::class, 'index'])->name('notifications.index');
         Route::get('/notification/getnotif', [NotificationController::class, 'getNotification'])->name('notifications.getNotification');
+        Route::get('/notification/{id}', [NotificationController::class, 'readNotification'])->name('notifications.readNotification');
 
         Route::get('/user', [UserListController::class, 'index'])->name('admin.user.index');
         Route::get('/user/{user}', [UserListController::class, 'show'])->name('admin.user.show');

@@ -55,6 +55,7 @@ class MidtransNotification extends Notification
             'title' => 'Perubahan Status Order',
             'category' => 'Midtrans',
             'body' => $message,
+            'link' => "http://ekommerce.test/admin/orders/" . $this->order->id,
         ];
     }
 

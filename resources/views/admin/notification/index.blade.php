@@ -16,27 +16,37 @@
                         <th scope="col">Title</th>
                         <th scope="col">Category</th>
                         <th scope="col">Body</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                {{-- <tbody>
                     @foreach ($notifications as $notification)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $notification->data['title'] }}</td>
                             <td>{{ $notification->data['category'] }}</td>
                             <td>{{ $notification->data['body'] }}</td>
+                            @if ($notification->read_at)
+                                <td>
+                                    <i class="fa fa-check" style="color: green"></i>
+                                    Read
+                                </td>
+                            @else
+                                <td>{{ $notification->created_at->diffForHumans() }}</td>
+                            @endif
+
                             @if (@isset($notification->data['link']))
                                 <td class="text-center">
-                                    <a href="{{ $notification->data['link'] }}" class="btn btn-sm btn-dark"><i
-                                            class="fa fa-eye"></i></a>
+                                    <a href="{{ route('notifications.readNotification', $notification->id) }}"
+                                        class="btn btn-sm btn-dark"><i class="fa fa-eye"></i></a>
                                 </td>
                             @else
                                 <td></td>
                             @endif
                         </tr>
                     @endforeach
-                </tbody>
+                </tbody> --}}
             </table>
         </div>
     </div>
@@ -47,7 +57,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 @stop
 
-{{-- @section('js')
+@section('js')
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
 
@@ -58,6 +68,10 @@
                 serverSide: true,
                 ajax: '{{ route('notifications.index') }}',
                 columns: [{
+                        name: '#',
+                        data: '#'
+                    },
+                    {
                         name: 'title',
                         data: 'title'
                     },
@@ -69,8 +83,16 @@
                         name: 'body',
                         data: 'body'
                     },
+                    {
+                        name: 'status',
+                        data: 'status'
+                    },
+                    {
+                        name: 'action',
+                        data: 'action'
+                    },
                 ]
             })
         })
     </script>
-@stop --}}
+@stop
