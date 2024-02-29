@@ -11,7 +11,13 @@ class NotificationController extends Controller
     {
         $user = $request->user();
         $notifications = $user->unreadNotifications;
-        return response()->json(['data' => $notifications]);
+        $data = $notifications->map(function ($notification) {
+            return [
+                'id' => $notification->id,
+                'data' => $notification->data,
+            ];
+        });
+        return response()->json(['data' => $data]);
     }
 
     public function markAsRead(Request $request, string $id)

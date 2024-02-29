@@ -52,7 +52,7 @@ class NewOrderNotification extends Notification
         return [
             'title' => 'New Order Created',
             'category' => 'Order',
-            'body' => 'New order has been created!',
+            'body' => 'New order Id' . $this->order->id . ' has been created!',
             'link' => "http://ekommerce.test/admin/orders/" . $this->order->id,
         ];
     }

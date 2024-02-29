@@ -58,12 +58,6 @@ class NotificationController extends Controller
 
         return view('admin.notification.index');
     }
-    // public function index()
-    // {
-    //     $notifications = auth()->user()->notifications;
-
-    //     return view('admin.notification.index', compact('notifications'));
-    // }
 
     public function readNotification(string $id)
     {

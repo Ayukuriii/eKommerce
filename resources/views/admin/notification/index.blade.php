@@ -20,33 +20,6 @@
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                {{-- <tbody>
-                    @foreach ($notifications as $notification)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $notification->data['title'] }}</td>
-                            <td>{{ $notification->data['category'] }}</td>
-                            <td>{{ $notification->data['body'] }}</td>
-                            @if ($notification->read_at)
-                                <td>
-                                    <i class="fa fa-check" style="color: green"></i>
-                                    Read
-                                </td>
-                            @else
-                                <td>{{ $notification->created_at->diffForHumans() }}</td>
-                            @endif
-
-                            @if (@isset($notification->data['link']))
-                                <td class="text-center">
-                                    <a href="{{ route('notifications.readNotification', $notification->id) }}"
-                                        class="btn btn-sm btn-dark"><i class="fa fa-eye"></i></a>
-                                </td>
-                            @else
-                                <td></td>
-                            @endif
-                        </tr>
-                    @endforeach
-                </tbody> --}}
             </table>
         </div>
     </div>

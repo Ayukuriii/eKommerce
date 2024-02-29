@@ -52,7 +52,7 @@ class NewUserNotification extends Notification
         return [
             'title' => 'New User Registered',
             'category' => 'User',
-            'body' => 'New user has been registered!',
+            'body' => 'New user Id ' . $this->user->id . ' has been registered!',
             'link' => "http://ekommerce.test/admin/user/" . $this->user->id,
         ];
     }
