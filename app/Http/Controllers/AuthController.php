@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\UserRoleEnum;
 use App\Models\User;
+use App\Notifications\Admin\NewUserNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -36,7 +37,13 @@ class AuthController extends Controller
         }
         $validatedData['role'] = UserRoleEnum::ADMIN->value;
 
-        User::create($validatedData);
+        $user = User::create($validatedData);
+
+        // notify admins
+        $admins = User::where('role', UserRoleEnum::ADMIN->value)->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new NewUserNotification($user));
+        }
 
         return to_route('auth.index')->with('success', 'Account created successfully!');
     }

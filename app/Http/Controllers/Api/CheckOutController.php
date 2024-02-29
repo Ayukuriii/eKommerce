@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\OrderStatusEnum;
+use Midtrans\Snap;
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Enums\UserRoleEnum;
 use Illuminate\Http\Request;
+use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
-use Midtrans\Snap;
+use App\Notifications\Admin\NewOrderNotification;
 
 class CheckOutController extends Controller
 {
@@ -76,6 +79,12 @@ class CheckOutController extends Controller
         $order->save();
 
         $cart->delete();
+
+        // notify admins
+        $admins = User::where('role', UserRoleEnum::ADMIN->value)->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new NewOrderNotification($order));
+        }
 
         return response()->json(['snap transaction' => $snapTrans]);
     }

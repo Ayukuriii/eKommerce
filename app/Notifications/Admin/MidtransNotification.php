@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Notifications\Api;
+namespace App\Notifications\Admin;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Log;
 
 class MidtransNotification extends Notification
 {
     use Queueable;
 
     private $order;
+
     /**
      * Create a new notification instance.
      */
@@ -47,18 +48,18 @@ class MidtransNotification extends Notification
      *
      * @return array<string, mixed>
      */
-    public function toDatabase(object $notifiable): array
+    public function toArray(object $notifiable): array
     {
         $message = $this->orderMessage($this->order);
         return [
             'title' => 'Perubahan Status Order',
+            'category' => 'Midtrans',
             'body' => $message,
         ];
     }
 
     private function orderMessage($order)
     {
-        Log::info(['notif status log' => $order]);
         if ($order->status == 'success') {
             $message = 'Order Id ' . $order->id . ' telah diselesaikan';
         } else {

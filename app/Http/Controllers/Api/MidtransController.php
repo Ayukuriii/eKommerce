@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use Error;
+
 use App\Models\User;
 use App\Models\Order;
+
 use App\Models\Product;
 use App\Enums\UserRoleEnum;
 use Illuminate\Http\Request;
@@ -12,7 +14,7 @@ use App\Enums\OrderStatusEnum;
 use App\Models\MidtransHistory;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Notifications\Api\MidtransNotification;
+use App\Notifications\Admin\MidtransNotification;
 
 class MidtransController extends Controller
 {
@@ -71,8 +73,15 @@ class MidtransController extends Controller
 
             $order->payment_type = $payload['payment_type'];
             $order->save();
+
+            // notify user / admins
+            $admins = User::where('role', UserRoleEnum::ADMIN->value)->get();
             if ($order->status !== 'pending') {
                 $this->statusUpdateNotification($order, $user);
+
+                foreach ($admins as $admin) {
+                    $this->statusUpdateNotification($order, $admin);
+                }
             }
         } catch (Error $err) {
             throw $err;
@@ -81,8 +90,8 @@ class MidtransController extends Controller
         return response()->json(['message' => 'success']);
     }
 
-    public function statusUpdateNotification($order, $users)
+    public function statusUpdateNotification($order, $user)
     {
-        $users->notify(new MidtransNotification($order));
+        $user->notify(new MidtransNotification($order));
     }
 }

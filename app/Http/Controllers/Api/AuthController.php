@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Enums\UserRoleEnum;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Notifications\Admin\NewUserNotification;
 
 class AuthController extends Controller
 {
@@ -23,7 +25,12 @@ class AuthController extends Controller
             return response()->json(['message' => 'Credentials does not match!']);
         }
 
-        User::create($validatedData);
+        $user = User::create($validatedData);
+        // notify admins
+        $admins = User::where('role', UserRoleEnum::ADMIN->value)->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new NewUserNotification($user));
+        }
 
         return response()->json(['message' => 'Account created successfully!']);
     }

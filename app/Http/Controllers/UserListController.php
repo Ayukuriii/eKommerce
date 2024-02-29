@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Enums\UserRoleEnum;
-use App\Exports\UsersExport;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserListController extends Controller
@@ -21,7 +17,7 @@ class UserListController extends Controller
 
             return DataTables::of($users)
                 ->addColumn('action', function ($user) {
-                    $viewUrl = route('admin.user.index');
+                    $viewUrl = route('admin.user.show', $user->id);
                     return '<td class="text-center d-flex justify-content-center align-items-center">
                             <a href="' . $viewUrl . '" class="btn btn-sm btn-dark mr-1"><i class="fa fa-eye"></i></a>
                         </td>';

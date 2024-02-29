@@ -5,8 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserListController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
 
 Route::redirect('/', '/admin/dashboard');
 
@@ -27,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/notification', [NotificationController::class, 'index'])->name('notifications.index');
+        Route::get('/notification/getnotif', [NotificationController::class, 'getNotification'])->name('notifications.getNotification');
 
         Route::get('/user', [UserListController::class, 'index'])->name('admin.user.index');
         Route::get('/user/{user}', [UserListController::class, 'show'])->name('admin.user.show');
