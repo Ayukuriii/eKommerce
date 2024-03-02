@@ -29,7 +29,7 @@ class MidtransNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -37,10 +37,14 @@ class MidtransNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $url = "http://ekommerce.test/admin/orders/" . $this->order->id;
+        $message = $this->orderMessage($this->order);
+
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject('Perubahan Status Order')
+            ->greeting('Hello')
+            ->line($message)
+            ->action('Detail Order', $url);
     }
 
     /**
